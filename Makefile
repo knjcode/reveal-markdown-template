@@ -1,19 +1,21 @@
 .PHONY: all clean
 
+REVEAL_VERSION=3.6.0
+
 all: js/reveal.js
 
-3.5.0.tar.gz:
-	wget https://github.com/hakimel/reveal.js/archive/3.5.0.tar.gz
+${REVEAL_VERSION}.tar.gz:
+	wget https://github.com/hakimel/reveal.js/archive/${REVEAL_VERSION}.tar.gz
 
 
-js/reveal.js: 3.5.0.tar.gz
+js/reveal.js: ${REVEAL_VERSION}.tar.gz
 	tar zxf $<
-	rm -f reveal.js-3.5.0/index.html
-	rsync -a reveal.js-3.5.0/ .
+	rm -f reveal.js-${REVEAL_VERSION}/index.html
+	rsync -a reveal.js-${REVEAL_VERSION}/ .
 	touch js/reveal.js
 
 clean:
-	rm -rf .gitignore .travis.yml 3.5.0.tar.gz bower.json CONTRIBUTING.md \
+	rm -rf .gitignore .travis.yml ${REVEAL_VERSION}.tar.gz bower.json CONTRIBUTING.md \
 		css demo.html getreveal.sh Gruntfile.js js lib LICENSE \
 		node_modules package.json package-lock.json plugin README.md \
-		reveal.js-3.5.0 test
+		reveal.js-${REVEAL_VERSION} test
